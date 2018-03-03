@@ -1,4 +1,4 @@
-# Decision Tree Classification
+# Random Forest Classification
 
 # Importing the libraries
 import numpy as np
@@ -21,9 +21,10 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 # Fitting classifier to the Training set
-from sklearn.tree import DecisionTreeClassifier 
-classifier = DecisionTreeClassifier(criterion = "entropy", random_state = 0)
-classifier.fit(X_train, y_train)
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
+classifier.fit(X_train, y_train) # 10, 1000 and 10000 did 8 incorrect pred, 100 did 9 incorrect
+
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
 
@@ -43,7 +44,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Decision Tree (Training set)')
+plt.title('Random Forest Classification (Training set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
@@ -61,7 +62,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Decision Tree (Test set)')
+plt.title('Random Forest Classification (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
